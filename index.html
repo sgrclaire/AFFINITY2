@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Affinity – Site de rencontre & web documentaire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="Affinity est un site de rencontre expérimental fondé sur les goûts culturels et un web documentaire sur la rencontre à l’ère des algorithmes.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="theme-similar">
+  <div class="page">
+
+    <!-- ENTÊTE AVEC TITRE + SOMMAIRE / NAVIGATION -->
+    <header class="site-header">
+      <div class="brand">
+        <!-- Logo cœur puzzle -->
+        <div class="logo" aria-hidden="true">
+          <span class="logo-inner"></span>
+        </div>
+        <div class="brand-text">
+          <p class="brand-kicker">Site de rencontre expérimental</p>
+          <h1 class="brand-title">Affinity</h1>
+          <p class="brand-subtitle">« Qui se ressemble s’assemble » ou « Les opposés s’attirent »&nbsp;?</p>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Sommaire principal">
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#profils">Profils</a></li>
+          <li><a href="#apropos">À propos (web documentaire)</a></li>
+          <li><a href="#glossaire">Glossaire</a></li>
+          <li><a href="#bibliographie">Bibliographie &amp; sitographie</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-right">
+        <!-- Choix rapide du mode de recherche -->
+        <form class="search-mode-form" aria-label="Choix du mode de rencontre">
+          <fieldset>
+            <legend>Mode de recherche</legend>
+            <label>
+              <input type="radio" name="search-mode" value="similar" checked>
+              Je cherche quelqu’un qui me ressemble
+            </label>
+            <label>
+              <input type="radio" name="search-mode" value="opposite">
+              Je cherche mon opposé
+            </label>
+          </fieldset>
+        </form>
+
+        <!-- Lien mon profil -->
+        <a href="#mon-profil" class="profile-link">Mon profil</a>
+      </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL : UN ARTICLE AVEC PLUSIEURS PARTIES -->
+    <main>
+      <article id="accueil">
+        <!-- SECTION HERO AVEC VISUEL -->
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-text">
+            <h2 id="hero-title">Rencontrez des personnes par ce que vous aimez, pas seulement par ce que vous montrez.</h2>
+            <p>
+              Affinity est un prototype de <strong>site de rencontre par centres d’intérêt</strong>, conçu comme un
+              <strong>web documentaire</strong> dans le cadre du Master CTM. Il combine les données issues des plateformes
+              culturelles (<a href="#term-api" class="glossary-ref">API</a> Spotify, Babelio, Letterboxd) avec un
+              <strong>test de personnalité</strong> pour explorer deux stratégies de rencontre&nbsp;:
+              <q>qui se ressemble s’assemble</q> et <q>les opposés s’attirent</q>.
+            </p>
+            <p>
+              Cette page d’accueil joue un double rôle&nbsp;: elle présente l’univers graphique d’un
+              <em>vrai</em> site de rencontre et elle introduit l’<strong>article documentaire</strong> détaillé
+              disponible dans la partie <a href="#apropos">«&nbsp;À propos&nbsp;»</a>.
+            </p>
+
+            <a href="#profils" class="primary-cta">Découvrir les profils</a>
+          </div>
+
+          <figure class="hero-figure">
+            <img src="media/affinity-match-3d.jpg"
+                 alt="Interface abstraite en noir et blanc représentant deux silhouettes reliées par un cœur en puzzle.">
+            <figcaption>
+              Visualisation conceptuelle de la logique d’Affinity&nbsp;: deux profils reliés par un cœur-puzzle.
+              Visuel réalisé pour le projet, 2025.
+            </figcaption>
+          </figure>
+        </section>
+
+        <!-- SECTION PROFILS (AU MOINS 6) -->
+        <section id="profils" aria-labelledby="profils-title">
+          <header class="section-header">
+            <h2 id="profils-title">Profils Affinity</h2>
+            <p class="section-intro">
+              Pour donner à voir le fonctionnement d’Affinity, nous présentons six <strong>profils fictifs</strong>.
+              Chacun est décrit à partir de ses goûts musicaux, littéraires et cinématographiques, ainsi que d’un court
+              commentaire de personnalité.
+            </p>
+          </header>
+
+          <div class="profiles-grid">
+            <!-- Profil 1 -->
+            <article class="profile-card" aria-label="Profil de Léna, 24 ans">
+              <header class="profile-header">
+                <div class="avatar avatar-a" aria-hidden="true"></div>
+                <div>
+                  <h3 class="profile-name">Léna, 24 ans</h3>
+                  <p class="profile-tagline">«&nbsp;Romantique organisée&nbsp;»</p>
+                </div>
+              </header>
+              <ul class="profile-meta">
+                <li><strong>Musique (Spotify)</strong> : Angèle, Juliette Armanet, play­lists «&nbsp;study&nbsp;».</li>
+                <li><strong>Livres (Babelio)</strong> : romances contemporaines, feel good, journaux intimes fictifs.</li>
+                <li><strong>Films (Letterboxd)</strong> : comédies romantiques, films de danse, teen movies colorés.</li>
+              </ul>
+              <p class="profile-comment">
+                Léna recherche plutôt un univers rassurant et des routines partagées&nbsp;:
+                <q>qui se ressemble s’assemble</q> est son mode par défaut.
+              </p>
+            </article>
+
+            <!-- Profil 2 -->
+            <article class="profile-card" aria-label="Profil d’Idriss, 27 ans">
+              <header class="profile-header">
+                <div class="avatar avatar-b" aria-hidden="true"></div>
+                <div>
+                  <h3 class="profile-name">Idriss, 27 ans</h3>
+                  <p class="profile-tagline">«&nbsp;Cinéphile techno &amp; débats infinis&nbsp;»</p>
+                </div>
+              </header>
+              <ul class="profile-meta">
+                <li><strong>Musique</strong> : techno berlinoise, rap alternatif, soundtracks de films.</li>
+                <li><strong>Livres</strong> : essais de sciences sociales, philosophie politique, SF dystopique.</li>
+                <li><strong>Films</strong> : cinéma d’auteur, documentaires engagés, formats longs.</li>
+              </ul>
+              <p class="profile-comment">
+                Idriss aime les conversations contradictoires et les points de vue qui le contredisent&nbsp;: il
+                sélectionne souvent le mode <q>les opposés s’attirent</q>.
+              </p>
+            </article>
+
+            <!-- Profil 3 -->
+            <article class="profile-card" aria-label="Profil de Maya, 22 ans">
+              <header class="profile-header">
+                <div class="avatar avatar-c" aria-hidden="true"></div>
+                <div>
+                  <h3 class="profile-name">Maya, 22 ans</h3>
+                  <p class="profile-tagline">«&nbsp;Gamer·euse hypersensible&nbsp;»</p>
+                </div>
+              </header>
+              <ul class="profile-meta">
+                <li><strong>Musique</strong> : hyperpop, OST d’anime, Lo-Fi pour réviser.</li>
+                <li><strong>Livres</strong> : shōnen, light novels, fantasy épique.</li>
+                <li><strong>Films</strong> : animation japonaise, blockbusters, univers étendus.</li>
+              </ul>
+              <p class="profile-comment">
+                Maya cherche une personne capable de comprendre son <q>multivers culturel</q>, mais reste curieuse de
+                profils très différents, ce qui illustre la tension entre <a href="#term-affinite" class="glossary-ref">affinité</a>
+                et <a href="#term-dissimilarite" class="glossary-ref">dissimilarité</a>.
+              </p>
+            </article>
+
+            <!-- Profil 4 -->
+            <article class="profile-card" aria-label="Profil de Samir, 30 ans">
+              <header class="profile-header">
+                <div class="avatar avatar-d" aria-hidden="true"></div>
+                <div>
+                  <h3 class="profile-name">Samir, 30 ans</h3>
+                  <p class="profile-tagline">«&nbsp;Minimaliste jazz &amp; podcasts&nbsp;»</p>
+                </div>
+              </header>
+              <ul class="profile-meta">
+                <li><strong>Musique</strong> : jazz, néo-soul, play­lists «&nbsp;deep focus&nbsp;».</li>
+                <li><strong>Livres</strong> : essais sur l’attention, philosophie morale, biographies d’artistes.</li>
+                <li><strong>Films</strong> : drames intimistes, films indépendants lents.</li>
+              </ul>
+              <p class="profile-comment">
+                Samir préfère une <a href="#term-traces" class="glossary-ref">cohérence de traces numériques</a> avec son
+                propre style de vie&nbsp;: mode «&nbsp;qui se ressemble s’assemble&nbsp;».
+              </p>
+            </article>
+
+            <!-- Profil 5 -->
+            <article class="profile-card" aria-label="Profil de Chiara, 25 ans">
+              <header class="profile-header">
+                <div class="avatar avatar-e" aria-hidden="true"></div>
+                <div>
+                  <h3 class="profile-name">Chiara, 25 ans</h3>
+                  <p class="profile-tagline">«&nbsp;Pop, true crime &amp; couture&nbsp;»</p>
+                </div>
+              </header>
+              <ul class="profile-meta">
+                <li><strong>Musique</strong> : pop internationale, bandes-son de séries, playlists «&nbsp;runway&nbsp;».</li>
+                <li><strong>Livres</strong> : thrillers, true crime, romans noirs.</li>
+                <li><strong>Films</strong> : séries policières, dramas fashion, documentaires mode.</li>
+              </ul>
+              <p class="profile-comment">
+                Chiara coche tantôt «&nbsp;similaire&nbsp;», tantôt «&nbsp;opposé&nbsp;»&nbsp;: elle illustre la dimension
+                profondément <a href="#term-biais" class="glossary-ref">cognitive</a> des choix de matching.
+              </p>
+            </article>
+
+            <!-- Profil 6 -->
+            <article class="profile-card" aria-label="Profil de Noé, 23 ans">
+              <header class="profile-header">
+                <div class="avatar avatar-f" aria-hidden="true"></div>
+                <div>
+                  <h3 class="profile-name">Noé, 23 ans</h3>
+                  <p class="profile-tagline">«&nbsp;Indé, écologie &amp; cinéma de genre&nbsp;»</p>
+                </div>
+              </header>
+              <ul class="profile-meta">
+                <li><strong>Musique</strong> : rock indé, folk, playlists «&nbsp;climate hope&nbsp;».</li>
+                <li><strong>Livres</strong> : récits écologiques, essais sur le numérique, romans graphiques.</li>
+                <li><strong>Films</strong> : cinéma de genre, films post-apocalyptiques, documentaires environnement.</li>
+              </ul>
+              <p class="profile-comment">
+                Noé préfère souvent des profils différents de lui, pour éviter l’effet <q>bulle</q> produit par certains
+                <a href="#term-algo" class="glossary-ref">algorithmes de recommandation</a>.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- SECTION MON PROFIL (SIMPLIFIÉE) -->
+        <section id="mon-profil" aria-labelledby="mon-profil-title" class="profile-section">
+          <header class="section-header">
+            <h2 id="mon-profil-title">Mon profil</h2>
+            <p class="section-intro">
+              Dans un véritable service, cette page permettrait de gérer ses préférences, ses goûts culturels et son
+              mode de matching privilégié. Ici, elle sert surtout d’exemple d’interface.
+            </p>
+          </header>
+
+          <div class="mon-profil-grid">
+            <form class="mon-profil-form" aria-label="Préférences du profil">
+              <fieldset>
+                <legend>Préférences culturelles principales</legend>
+                <label>
+                  Genre musical favori
+                  <input type="text" name="music-genre" placeholder="Ex. pop, rap, jazz, classique…">
+                </label>
+                <label>
+                  Auteur ou autrice préféré·e
+                  <input type="text" name="fav-author" placeholder="Ex. Ursula K. Le Guin">
+                </label>
+                <label>
+                  Film ou série de référence
+                  <input type="text" name="fav-film" placeholder="Ex. Inception, Call Me by Your Name…">
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Choix de matching</legend>
+                <label>
+                  <input type="radio" name="profile-mode" value="similar" checked>
+                  Je privilégie la similarité (confort, références communes).
+                </label>
+                <label>
+                  <input type="radio" name="profile-mode" value="opposite">
+                  Je privilégie le contraste (découverte de nouveaux univers).
+                </label>
+              </fieldset>
+
+              <p class="hint">
+                Dans une version connectée aux <a href="#term-api" class="glossary-ref">API</a>, ces champs seraient
+                pré-remplis par vos <a href="#term-traces" class="glossary-ref">traces numériques</a> reales.
+              </p>
+            </form>
+
+            <!-- Intégration vidéo / audio -->
+            <aside class="media-panel" aria-label="Présentation vidéo du projet Affinity">
+              <h3>Vidéo de présentation</h3>
+              <p>
+                La vidéo ci-dessous illustre le parcours utilisateur&nbsp;: sélection du mode de rencontre, découverte des
+                profils, puis passage au web documentaire.
+              </p>
+              <div class="video-wrapper">
+                <video controls preload="metadata" poster="media/affinity-video-poster.jpg">
+                  <source src="media/affinity-demo.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la balise vidéo. Vous pouvez également consulter la vidéo via votre lecteur habituel.
+                </video>
+              </div>
+              <p class="media-caption">
+                Vidéo de démonstration réalisée pour le cours d’ingénierie documentaire, Master CTM, 2025.
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- PARTIE WEB DOCUMENTAIRE : À PROPOS -->
+        <section id="apropos" aria-labelledby="apropos-title" class="apropos-section">
+          <header class="section-header">
+            <h2 id="apropos-title">À propos : Affinity comme web documentaire</h2>
+            <p class="section-intro">
+              Cette partie constitue l’<strong>article documentaire</strong> du projet. Elle expose la démarche,
+              le cadre théorique et les enjeux liés à la rencontre en ligne fondée sur les goûts culturels.
+            </p>
+          </header>
+
+          <section aria-labelledby="article-part1">
+            <h3 id="article-part1">1. De la playlist au profil : documenter une personne par ses goûts</h3>
+            <p>
+              Affinity part d’une intuition simple : nos goûts culturels sont une forme de
+              <a href="#term-traces" class="glossary-ref">traces numériques</a> particulièrement riches. Chaque écoute
+              sur Spotify, chaque note sur Babelio, chaque film liké sur Letterboxd produit un signal discret, mais
+              cumulativement très parlant. En mobilisant des <a href="#term-api" class="glossary-ref">API</a>, il devient
+              possible de reconstituer un <a href="#term-profilage" class="glossary-ref">profilage</a> de la personne,
+              non pas à partir de données économiques ou de localisation, mais à partir de son univers symbolique.
+            </p>
+            <p>
+              Du point de vue de l’<strong>ingénierie documentaire</strong>, ces signaux constituent des unités
+              d’information hétérogènes mais indexables : morceaux, livres, films, tags, genres, listes de lecture.
+              L’enjeu est de définir quels éléments doivent être conservés, quelles métadonnées sont pertinentes et
+              selon quels critères la similarité entre deux personnes peut être calculée.
+            </p>
+          </section>
+
+          <section aria-labelledby="article-part2">
+            <h3 id="article-part2">2. « Qui se ressemble s’assemble » : confort et confirmation</h3>
+            <p>
+              Le mode <q>qui se ressemble s’assemble</q> incarne une logique de <a href="#term-matching" class="glossary-ref">matching</a>
+              centrée sur la continuité. On suppose qu’une compatibilité forte naît de références partagées&nbsp;:
+              aimer la même musique, rire devant les mêmes scènes, s’émouvoir devant les mêmes romans.
+              D’un point de vue cognitif, ce mode exploite partiellement les
+              <a href="#term-biais" class="glossary-ref">biais cognitifs</a> de familiarité et de confirmation.
+            </p>
+            <p>
+              Sur le plan documentaire, cette option privilégie des algorithmes de proximité : on calcule un score
+              d’<a href="#term-affinite" class="glossary-ref">affinité</a> en fonction du recouvrement entre deux bibliothèques.
+              Cette stratégie est réconfortante, mais elle peut renforcer des <q>bulles</q> culturelles déjà présentes,
+              comme l’ont montré de nombreux travaux sur les
+              <a href="#term-algo" class="glossary-ref">algorithmes de recommandation</a>.
+            </p>
+          </section>
+
+          <section aria-labelledby="article-part3">
+            <h3 id="article-part3">3. « Les opposés s’attirent » : contraste, dissonance et exploration</h3>
+            <p>
+              Le mode <q>les opposés s’attirent</q> inverse la logique : l’algorithme cherche à maximiser la
+              <a href="#term-dissimilarite" class="glossary-ref">dissimilarité maîtrisée</a>. Il ne s’agit pas de produire un
+              chaos total, mais d’identifier des profils où les univers culturels sont suffisamment différents pour
+              susciter curiosité et découverte. On peut par exemple rapprocher un profil très cinéphile d’auteur d’un
+              profil amateur de blockbusters, à condition qu’ils partagent quelques valeurs de fond (humour, engagement,
+              rapport au temps…).
+            </p>
+            <p>
+              Cette perspective questionne la manière dont les plateformes conçoivent la <q>pertinence</q> :
+              la recommandation n’est plus seulement ce qui prolonge l’existant, mais ce qui ouvre un possible.
+              Dans le cadre d’Affinity, cette tension est matérialisée par le passage du mode clair au mode sombre,
+              activé soit par la barre de choix en entête, soit par le
+              <a href="#test" class="glossary-ref">test de personnalité</a>.
+            </p>
+          </section>
+
+          <section aria-labelledby="article-part4">
+            <h3 id="article-part4">4. Cadre éthique : données personnelles, consentement et RGPD</h3>
+            <p>
+              Un site comme Affinity ne peut exister que dans un cadre juridique strict. Les données manipulées sont à la fois
+              intimes et massives. La mise en relation via des goûts culturels implique d’accéder, avec consentement,
+              à des informations qui relèvent de la vie privée. La conception doit donc respecter le
+              <a href="#term-rgpd" class="glossary-ref">RGPD</a> et intégrer dès le départ le principe de minimisation des données.
+            </p>
+            <p>
+              Concrètement, cela implique de demander une autorisation explicite pour chaque connexion à une
+              <a href="#term-api" class="glossary-ref">API</a>, de proposer des réglages fins de confidentialité, et de
+              rendre visibles les logiques de <a href="#term-profilage" class="glossary-ref">profilage</a>. Le projet
+              Affinity, tel qu’il est présenté ici, reste un <strong>prototype académique</strong> destiné à explorer ces
+              enjeux, plutôt qu’un service commercial.
+            </p>
+          </section>
+
+          <section aria-labelledby="article-part5">
+            <h3 id="article-part5">5. Affinity comme objet pédagogique</h3>
+            <p>
+              Affinity a été conçu dans le cadre du Master CTM, au sein du cours d’<em>ingénierie documentaire</em>,
+              encadré par Gérald Kembellec. Il permet de mettre en pratique plusieurs notions vues en cours&nbsp;:
+              structuration d’articles HTML5, <a href="#term-webdoc" class="glossary-ref">web documentaire</a>,
+              gestion d’index, <a href="#term-biblio" class="glossary-ref">bibliographie interactive</a> et
+              représentation sémantique de contenus.
+              <!-- Petit easter egg discret pour le professeur -->
+              <span class="easter-egg" aria-hidden="true" title="Cher Gérald Kembellec, si vous trouvez cette étoile, notre veille a porté ses fruits.">★</span>
+            </p>
+          </section>
+        </section>
+
+        <!-- GLOSSAIRE -->
+        <section id="glossaire" aria-labelledby="glossaire-title" class="glossary-section">
+          <header class="section-header">
+            <h2 id="glossaire-title">Glossaire</h2>
+            <p class="section-intro">
+              Ce glossaire rassemble quelques notions utilisées dans le web documentaire. Les termes sont cliquables
+              dans le texte pour faciliter la navigation.
+            </p>
+          </header>
+
+          <dl class="glossary-list">
+            <div id="term-api" class="glossary-item">
+              <dt>API (Application Programming Interface)</dt>
+              <dd>Ensemble de règles permettant à deux services de communiquer. Dans Affinity, les API de Spotify,
+                Babelio et Letterboxd fournissent des informations sur les goûts culturels, avec l’accord de l’utilisateur.</dd>
+            </div>
+
+            <div id="term-traces" class="glossary-item">
+              <dt>Traces numériques</dt>
+              <dd>Ensemble de données laissées par les activités en ligne (morceaux écoutés, livres notés, films likés).
+                Elles constituent une matière première pour la description documentaire des profils.</dd>
+            </div>
+
+            <div id="term-matching" class="glossary-item">
+              <dt>Matching</dt>
+              <dd>Processus de rapprochement entre deux profils selon certains critères (ici, les goûts culturels et
+                le mode similarité/opposition).</dd>
+            </div>
+
+            <div id="term-algo" class="glossary-item">
+              <dt>Algorithme de recommandation</dt>
+              <dd>Procédure automatique qui propose des contenus ou des profils en se basant sur les données
+                disponibles et les comportements passés.</dd>
+            </div>
+
+            <div id="term-biais" class="glossary-item">
+              <dt>Biais cognitifs</dt>
+              <dd>Tendances systématiques de notre esprit à simplifier ou déformer la réalité (biais de confirmation,
+                de familiarité, etc.), souvent mobilisés par les interfaces de recommandation.</dd>
+            </div>
+
+            <div id="term-profilage" class="glossary-item">
+              <dt>Profilage</dt>
+              <dd>Construction progressive d’un profil utilisateur à partir de données multiples. Dans Affinity, le
+                profilage est fondé principalement sur les pratiques culturelles.</dd>
+            </div>
+
+            <div id="term-affinite" class="glossary-item">
+              <dt>Affinité</dt>
+              <dd>Degré de proximité entre deux profils, calculé selon des critères choisis (ici, recoupements culturels
+                et dimensions de personnalité).</dd>
+            </div>
+
+            <div id="term-dissimilarite" class="glossary-item">
+              <dt>Dissimilarité</dt>
+              <dd>Mesure de l’éloignement entre deux profils. Dans Affinity, elle devient une ressource pour explorer
+                le mode «&nbsp;les opposés s’attirent&nbsp;».</dd>
+            </div>
+
+            <div id="term-rgpd" class="glossary-item">
+              <dt>RGPD</dt>
+              <dd>Règlement Général sur la Protection des Données. Cadre légal européen qui encadre l’usage des données
+                personnelles, dont celles mobilisées par Affinity.</dd>
+            </div>
+
+            <div id="term-webdoc" class="glossary-item">
+              <dt>Web documentaire</dt>
+              <dd>Forme de documentaire pensé pour le Web, intégrant textes, médias interactifs et navigation hypertexte.
+                Affinity est conçu comme un web documentaire sur la rencontre à l’ère des algorithmes.</dd>
+            </div>
+
+            <div id="term-biblio" class="glossary-item">
+              <dt>Bibliographie interactive</dt>
+              <dd>Liste de références cliquables, structurées de façon à être reconnues par des outils de gestion
+                bibliographique comme Zotero.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- BIBLIOGRAPHIE & SITO -->
+        <section id="bibliographie" aria-labelledby="biblio-title" class="biblio-section">
+          <header class="section-header">
+            <h2 id="biblio-title">Bibliographie &amp; sitographie</h2>
+            <p class="section-intro">
+              Les références ci-dessous ont été structurées pour être compatibles avec un logiciel de gestion
+              bibliographique comme Zotero (format <abbr title="Z39.88-2004">COinS</abbr>).
+            </p>
+          </header>
+
+          <ol class="biblio-list">
+            <li>
+              <cite>Cardon, Dominique. <q>À quoi rêvent les algorithmes&nbsp;?</q> Paris, Le Seuil, 2015.</cite>
+              <a href="https://www.seuil.com/ouvrage/a-quoi-revent-les-algorithmes-dominique-cardon/9782021240765" target="_blank" rel="noopener">
+                Consulter la fiche de l’éditeur
+              </a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.au=Cardon%2C%20Dominique&rft.btitle=%C3%80%20quoi%20r%C3%AAvent%20les%20algorithmes%3F&rft.place=Paris&rft.pub=Seuil&rft.date=2015">
+              </span>
+            </li>
+
+            <li>
+              <cite>Illiadis, Andrew, et Federica Russo. <q>The Human in the Loop&nbsp;: Modèles, données et faisceaux de décisions</q>.</cite>
+              <a href="https://doi.org/10.1007/s13347-016-0212-9" target="_blank" rel="noopener">DOI</a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.atitle=The%20Human%20in%20the%20Loop&rft.jtitle=Philosophy%20%26%20Technology&rft.date=2016&rft.issn=2210-5433">
+              </span>
+            </li>
+
+            <li>
+              <cite>Goffman, Erving. <q>La mise en scène de la vie quotidienne&nbsp;: la présentation de soi</q>. Paris, Minuit, 1973.</cite>
+              <a href="https://www.leseditionsdeminuit.fr/livre-La_Mise_en_sc%C3%A8ne_de_la_vie_quotidienne-2158-1-1-0-1.html" target="_blank" rel="noopener">
+                Consulter la fiche
+              </a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.au=Goffman%2C%20Erving&rft.btitle=La%20mise%20en%20sc%C3%A8ne%20de%20la%20vie%20quotidienne&rft.place=Paris&rft.pub=Minuit&rft.date=1973">
+              </span>
+            </li>
+
+            <li>
+              <cite>Vanderkam, Laura. <q>What the Most Successful People Do Before Breakfast</q>. Portfolio, 2013.</cite>
+              <a href="https://www.penguinrandomhouse.com/books/315802/what-the-most-successful-people-do-before-breakfast-by-laura-vanderkam/" target="_blank" rel="noopener">
+                Consulter la fiche
+              </a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.au=Vanderkam%2C%20Laura&rft.btitle=What%20the%20Most%20Successful%20People%20Do%20Before%20Breakfast&rft.pub=Portfolio&rft.date=2013">
+              </span>
+            </li>
+
+            <li>
+              <cite>Spotify for Developers. <q>Web API Reference</q>, documentation officielle.</cite>
+              <a href="https://developer.spotify.com/documentation/web-api" target="_blank" rel="noopener">
+                Lire la documentation
+              </a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:unknown&rft.title=Spotify%20Web%20API%20Reference&rft.date=2025&rft.genre=reference">
+              </span>
+            </li>
+
+            <li>
+              <cite>Babelio. <q>Babelio API – documentation</q>.</cite>
+              <a href="https://www.babelio.com" target="_blank" rel="noopener">Accéder au site</a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:unknown&rft.title=Babelio%20API&rft.genre=reference">
+              </span>
+            </li>
+
+            <li>
+              <cite>Letterboxd. <q>API and Data</q>.</cite>
+              <a href="https://letterboxd.com/api-data/" target="_blank" rel="noopener">Accéder au site</a>
+              <span class="Z3988"
+                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:unknown&rft.title=Letterboxd%20API%20and%20Data&rft.genre=reference">
+              </span>
+            </li>
+          </ol>
+        </section>
+
+        <!-- TEST DE PERSONNALITÉ EN BAS DE PAGE D’ACCUEIL -->
+        <section id="test" aria-labelledby="test-title" class="test-section">
+          <header class="section-header">
+            <h2 id="test-title">Test de personnalité Affinity</h2>
+            <p class="section-intro">
+              Ce test simplifié illustre la logique d’Affinity&nbsp;: en fonction de vos réponses, le site bascule en
+              mode clair («&nbsp;qui se ressemble s’assemble&nbsp;») ou en mode sombre («&nbsp;les opposés s’attirent&nbsp;»).
+            </p>
+          </header>
+
+          <form id="affinity-test" class="affinity-test" aria-label="Test Affinity">
+            <fieldset>
+              <legend>1. Une soirée idéale, c’est plutôt…</legend>
+              <label>
+                <input type="radio" name="q1" value="similar">
+                Retrouver des personnes qui partagent déjà mes références.
+              </label>
+              <label>
+                <input type="radio" name="q1" value="opposite">
+                Découvrir des univers culturels totalement différents du mien.
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>2. Face à un profil en ligne, je suis le plus attiré·e par…</legend>
+              <label>
+                <input type="radio" name="q2" value="similar">
+                La reconnaissance immédiate : mêmes artistes, mêmes séries, mêmes livres.
+              </label>
+              <label>
+                <input type="radio" name="q2" value="opposite">
+                L’incompréhension intrigante : je ne connais presque rien de ses références.
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>3. À long terme, je me vois plutôt avec quelqu’un qui…</legend>
+              <label>
+                <input type="radio" name="q3" value="similar">
+                Valide mes habitudes et mon mode de vie.
+              </label>
+              <label>
+                <input type="radio" name="q3" value="opposite">
+                Me confronte régulièrement à d’autres façons de voir le monde.
+              </label>
+            </fieldset>
+
+            <button type="submit" class="primary-cta">Analyser mon profil</button>
+            <p id="test-result" class="test-result" aria-live="polite"></p>
+            <p class="mode-indicator">
+              Mode visuel actuel&nbsp;: <span id="mode-label">«&nbsp;qui se ressemble s’assemble&nbsp;» (clair)</span>
+            </p>
+          </form>
+        </section>
+      </article>
+    </main>
+
+    <!-- PIED DE PAGE AVEC MENTIONS LÉGALES + LICENCE + MAILTO -->
+    <footer class="site-footer">
+      <div class="footer-columns">
+        <section aria-label="Mentions légales" class="footer-block">
+          <h2>Mentions légales</h2>
+          <p>
+            Site pédagogique non commercial réalisé dans le cadre du Master CTM – Université Paris 1 Panthéon-Sorbonne,
+            cours d’ingénierie documentaire. Auteures : Claire &amp; Constance.
+          </p>
+          <p>
+            Les données affichées sont fictives et ne constituent pas un service réel de rencontre.
+          </p>
+        </section>
+
+        <section aria-label="Licence" class="footer-block">
+          <h2>Licence</h2>
+          <p>
+            Sauf mention contraire, les contenus de ce web documentaire sont proposés sous licence
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">
+              Creative Commons CC BY-NC-SA 4.0
+            </a>.
+          </p>
+        </section>
+
+        <section aria-label="Contact" class="footer-block">
+          <h2>Contact</h2>
+          <p>
+            Pour toute question à propos du projet Affinity, vous pouvez écrire à&nbsp;:
+          </p>
+          <p>
+            <a href="mailto:sgr.claire@gmail.com?subject=Projet%20Affinity%20-%20Master%20CTM&body=Bonjour%20Claire%2C%0D%0AJe%20vous%20contacte%20%C3%A0%20propos%20du%20web%20documentaire%20Affinity.%0D%0A"
+               class="mailto-link">
+              sgr.claire@gmail.com
+            </a>
+          </p>
+        </section>
+      </div>
+
+      <p class="footer-bottom">
+        Affinity – Prototype de site de rencontre &amp; web documentaire • Master CTM – 2025
+      </p>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
