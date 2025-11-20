@@ -1,649 +1,891 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>Affinity – Site de rencontre & web documentaire</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+/* ------------------------------
+   VARIABLES & THÈMES
+--------------------------------- */
 
-  <meta name="description" content="Affinity est un site de rencontre expérimental fondé sur les goûts culturels et un web documentaire sur la rencontre à l’ère des algorithmes.">
-  <link rel="stylesheet" href="style.css">
-</head>
+:root {
+  --font-title: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Merriweather", Georgia, "Times New Roman", serif;
 
-<body class="theme-similar">
-  <div class="page">
+  --radius-lg: 28px;
+  --radius-md: 22px;
+  --radius-sm: 14px;
 
-    <!-- ENTÊTE AVEC TITRE + SOMMAIRE / NAVIGATION -->
-    <header class="site-header">
-      <div class="brand">
-        <!-- Logo cœur puzzle -->
-        <div class="logo" aria-hidden="true">
-          <span class="logo-inner"></span>
-        </div>
-        <div class="brand-text">
-          <p class="brand-kicker">Site de rencontre expérimental</p>
-          <h1 class="brand-title">Affinity</h1>
-          <p class="brand-subtitle">« Qui se ressemble s’assemble » ou « Les opposés s’attirent »&nbsp;?</p>
-        </div>
-      </div>
+  --transition-fast: 0.18s ease-out;
+  --transition-med: 0.28s ease-out;
 
-      <nav class="main-nav" aria-label="Sommaire principal">
-        <ul>
-          <li><a href="#accueil">Accueil</a></li>
-          <li><a href="#profils">Profils</a></li>
-          <li><a href="#apropos">À propos (web documentaire)</a></li>
-          <li><a href="#glossaire">Glossaire</a></li>
-          <li><a href="#bibliographie">Bibliographie &amp; sitographie</a></li>
-        </ul>
-      </nav>
+  /* Couleurs par défaut (similarité / clair) */
+  --bg: #f7f7f7;
+  --bg-alt: #ffffff;
+  --bg-hero: radial-gradient(circle at top left, rgba(0,0,0,0.05), transparent 55%);
+  --text: #111111;
+  --text-muted: #777777;
+  --accent: #111111;
+  --border-soft: #e2e2e2;
+  --border-strong: #c8c8c8;
+  --shadow-soft: 0 20px 50px rgba(0,0,0,0.08);
+  --shadow-strong: 0 25px 60px rgba(0,0,0,0.14);
+}
 
-      <div class="header-right">
-        <!-- Choix rapide du mode de recherche -->
-        <form class="search-mode-form" aria-label="Choix du mode de rencontre">
-          <fieldset>
-            <legend>Mode de recherche</legend>
-            <label>
-              <input type="radio" name="search-mode" value="similar" checked>
-              Je cherche quelqu’un qui me ressemble
-            </label>
-            <label>
-              <input type="radio" name="search-mode" value="opposite">
-              Je cherche mon opposé
-            </label>
-          </fieldset>
-        </form>
+/* Mode sombre : opposés */
+body.theme-opposite {
+  --bg: #050608;
+  --bg-alt: #101217;
+  --bg-hero: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 55%);
+  --text: #f3f3f3;
+  --text-muted: #a4a8b3;
+  --accent: #ffffff;
+  --border-soft: #252833;
+  --border-strong: #3a3f4c;
+  --shadow-soft: 0 30px 70px rgba(0,0,0,0.7);
+  --shadow-strong: 0 35px 90px rgba(0,0,0,0.9);
+}
 
-        <!-- Lien mon profil -->
-        <a href="#mon-profil" class="profile-link">Mon profil</a>
-      </div>
-    </header>
+/* ------------------------------
+   RESET LÉGER
+--------------------------------- */
 
-    <!-- CONTENU PRINCIPAL : UN ARTICLE AVEC PLUSIEURS PARTIES -->
-    <main>
-      <article id="accueil">
-        <!-- SECTION HERO AVEC VISUEL -->
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-text">
-            <h2 id="hero-title">Rencontrez des personnes par ce que vous aimez, pas seulement par ce que vous montrez.</h2>
-            <p>
-              Affinity est un prototype de <strong>site de rencontre par centres d’intérêt</strong>, conçu comme un
-              <strong>web documentaire</strong> dans le cadre du Master CTM. Il combine les données issues des plateformes
-              culturelles (<a href="#term-api" class="glossary-ref">API</a> Spotify, Babelio, Letterboxd) avec un
-              <strong>test de personnalité</strong> pour explorer deux stratégies de rencontre&nbsp;:
-              <q>qui se ressemble s’assemble</q> et <q>les opposés s’attirent</q>.
-            </p>
-            <p>
-              Cette page d’accueil joue un double rôle&nbsp;: elle présente l’univers graphique d’un
-              <em>vrai</em> site de rencontre et elle introduit l’<strong>article documentaire</strong> détaillé
-              disponible dans la partie <a href="#apropos">«&nbsp;À propos&nbsp;»</a>.
-            </p>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-            <a href="#profils" class="primary-cta">Découvrir les profils</a>
-          </div>
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
-          <figure class="hero-figure">
-            <img src="media/affinity-match-3d.jpg"
-                 alt="Interface abstraite en noir et blanc représentant deux silhouettes reliées par un cœur en puzzle.">
-            <figcaption>
-              Visualisation conceptuelle de la logique d’Affinity&nbsp;: deux profils reliés par un cœur-puzzle.
-              Visuel réalisé pour le projet, 2025.
-            </figcaption>
-          </figure>
-        </section>
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background var(--transition-med),
+    color var(--transition-med);
+}
 
-        <!-- SECTION PROFILS (AU MOINS 6) -->
-        <section id="profils" aria-labelledby="profils-title">
-          <header class="section-header">
-            <h2 id="profils-title">Profils Affinity</h2>
-            <p class="section-intro">
-              Pour donner à voir le fonctionnement d’Affinity, nous présentons six <strong>profils fictifs</strong>.
-              Chacun est décrit à partir de ses goûts musicaux, littéraires et cinématographiques, ainsi que d’un court
-              commentaire de personnalité.
-            </p>
-          </header>
+/* Guise de guillemets françaises pour <q> */
+q::before {
+  content: "« ";
+}
+q::after {
+  content: " »";
+}
 
-          <div class="profiles-grid">
-            <!-- Profil 1 -->
-            <article class="profile-card" aria-label="Profil de Léna, 24 ans">
-              <header class="profile-header">
-                <div class="avatar avatar-a" aria-hidden="true"></div>
-                <div>
-                  <h3 class="profile-name">Léna, 24 ans</h3>
-                  <p class="profile-tagline">«&nbsp;Romantique organisée&nbsp;»</p>
-                </div>
-              </header>
-              <ul class="profile-meta">
-                <li><strong>Musique (Spotify)</strong> : Angèle, Juliette Armanet, play­lists «&nbsp;study&nbsp;».</li>
-                <li><strong>Livres (Babelio)</strong> : romances contemporaines, feel good, journaux intimes fictifs.</li>
-                <li><strong>Films (Letterboxd)</strong> : comédies romantiques, films de danse, teen movies colorés.</li>
-              </ul>
-              <p class="profile-comment">
-                Léna recherche plutôt un univers rassurant et des routines partagées&nbsp;:
-                <q>qui se ressemble s’assemble</q> est son mode par défaut.
-              </p>
-            </article>
+/* ------------------------------
+   LAYOUT GÉNÉRAL
+--------------------------------- */
 
-            <!-- Profil 2 -->
-            <article class="profile-card" aria-label="Profil d’Idriss, 27 ans">
-              <header class="profile-header">
-                <div class="avatar avatar-b" aria-hidden="true"></div>
-                <div>
-                  <h3 class="profile-name">Idriss, 27 ans</h3>
-                  <p class="profile-tagline">«&nbsp;Cinéphile techno &amp; débats infinis&nbsp;»</p>
-                </div>
-              </header>
-              <ul class="profile-meta">
-                <li><strong>Musique</strong> : techno berlinoise, rap alternatif, soundtracks de films.</li>
-                <li><strong>Livres</strong> : essais de sciences sociales, philosophie politique, SF dystopique.</li>
-                <li><strong>Films</strong> : cinéma d’auteur, documentaires engagés, formats longs.</li>
-              </ul>
-              <p class="profile-comment">
-                Idriss aime les conversations contradictoires et les points de vue qui le contredisent&nbsp;: il
-                sélectionne souvent le mode <q>les opposés s’attirent</q>.
-              </p>
-            </article>
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
 
-            <!-- Profil 3 -->
-            <article class="profile-card" aria-label="Profil de Maya, 22 ans">
-              <header class="profile-header">
-                <div class="avatar avatar-c" aria-hidden="true"></div>
-                <div>
-                  <h3 class="profile-name">Maya, 22 ans</h3>
-                  <p class="profile-tagline">«&nbsp;Gamer·euse hypersensible&nbsp;»</p>
-                </div>
-              </header>
-              <ul class="profile-meta">
-                <li><strong>Musique</strong> : hyperpop, OST d’anime, Lo-Fi pour réviser.</li>
-                <li><strong>Livres</strong> : shōnen, light novels, fantasy épique.</li>
-                <li><strong>Films</strong> : animation japonaise, blockbusters, univers étendus.</li>
-              </ul>
-              <p class="profile-comment">
-                Maya cherche une personne capable de comprendre son <q>multivers culturel</q>, mais reste curieuse de
-                profils très différents, ce qui illustre la tension entre <a href="#term-affinite" class="glossary-ref">affinité</a>
-                et <a href="#term-dissimilarite" class="glossary-ref">dissimilarité</a>.
-              </p>
-            </article>
+@media (min-width: 900px) {
+  .page {
+    padding: 32px 20px 48px;
+  }
+}
 
-            <!-- Profil 4 -->
-            <article class="profile-card" aria-label="Profil de Samir, 30 ans">
-              <header class="profile-header">
-                <div class="avatar avatar-d" aria-hidden="true"></div>
-                <div>
-                  <h3 class="profile-name">Samir, 30 ans</h3>
-                  <p class="profile-tagline">«&nbsp;Minimaliste jazz &amp; podcasts&nbsp;»</p>
-                </div>
-              </header>
-              <ul class="profile-meta">
-                <li><strong>Musique</strong> : jazz, néo-soul, play­lists «&nbsp;deep focus&nbsp;».</li>
-                <li><strong>Livres</strong> : essais sur l’attention, philosophie morale, biographies d’artistes.</li>
-                <li><strong>Films</strong> : drames intimistes, films indépendants lents.</li>
-              </ul>
-              <p class="profile-comment">
-                Samir préfère une <a href="#term-traces" class="glossary-ref">cohérence de traces numériques</a> avec son
-                propre style de vie&nbsp;: mode «&nbsp;qui se ressemble s’assemble&nbsp;».
-              </p>
-            </article>
+/* ------------------------------
+   ENTÊTE / HEADER
+--------------------------------- */
 
-            <!-- Profil 5 -->
-            <article class="profile-card" aria-label="Profil de Chiara, 25 ans">
-              <header class="profile-header">
-                <div class="avatar avatar-e" aria-hidden="true"></div>
-                <div>
-                  <h3 class="profile-name">Chiara, 25 ans</h3>
-                  <p class="profile-tagline">«&nbsp;Pop, true crime &amp; couture&nbsp;»</p>
-                </div>
-              </header>
-              <ul class="profile-meta">
-                <li><strong>Musique</strong> : pop internationale, bandes-son de séries, playlists «&nbsp;runway&nbsp;».</li>
-                <li><strong>Livres</strong> : thrillers, true crime, romans noirs.</li>
-                <li><strong>Films</strong> : séries policières, dramas fashion, documentaires mode.</li>
-              </ul>
-              <p class="profile-comment">
-                Chiara coche tantôt «&nbsp;similaire&nbsp;», tantôt «&nbsp;opposé&nbsp;»&nbsp;: elle illustre la dimension
-                profondément <a href="#term-biais" class="glossary-ref">cognitive</a> des choix de matching.
-              </p>
-            </article>
+.site-header {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 2fr) auto;
+  gap: 18px;
+  padding: 16px 18px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.12), transparent 60%),
+    var(--bg-alt);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+}
 
-            <!-- Profil 6 -->
-            <article class="profile-card" aria-label="Profil de Noé, 23 ans">
-              <header class="profile-header">
-                <div class="avatar avatar-f" aria-hidden="true"></div>
-                <div>
-                  <h3 class="profile-name">Noé, 23 ans</h3>
-                  <p class="profile-tagline">«&nbsp;Indé, écologie &amp; cinéma de genre&nbsp;»</p>
-                </div>
-              </header>
-              <ul class="profile-meta">
-                <li><strong>Musique</strong> : rock indé, folk, playlists «&nbsp;climate hope&nbsp;».</li>
-                <li><strong>Livres</strong> : récits écologiques, essais sur le numérique, romans graphiques.</li>
-                <li><strong>Films</strong> : cinéma de genre, films post-apocalyptiques, documentaires environnement.</li>
-              </ul>
-              <p class="profile-comment">
-                Noé préfère souvent des profils différents de lui, pour éviter l’effet <q>bulle</q> produit par certains
-                <a href="#term-algo" class="glossary-ref">algorithmes de recommandation</a>.
-              </p>
-            </article>
-          </div>
-        </section>
+@media (max-width: 900px) {
+  .site-header {
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+  }
+}
 
-        <!-- SECTION MON PROFIL (SIMPLIFIÉE) -->
-        <section id="mon-profil" aria-labelledby="mon-profil-title" class="profile-section">
-          <header class="section-header">
-            <h2 id="mon-profil-title">Mon profil</h2>
-            <p class="section-intro">
-              Dans un véritable service, cette page permettrait de gérer ses préférences, ses goûts culturels et son
-              mode de matching privilégié. Ici, elle sert surtout d’exemple d’interface.
-            </p>
-          </header>
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-          <div class="mon-profil-grid">
-            <form class="mon-profil-form" aria-label="Préférences du profil">
-              <fieldset>
-                <legend>Préférences culturelles principales</legend>
-                <label>
-                  Genre musical favori
-                  <input type="text" name="music-genre" placeholder="Ex. pop, rap, jazz, classique…">
-                </label>
-                <label>
-                  Auteur ou autrice préféré·e
-                  <input type="text" name="fav-author" placeholder="Ex. Ursula K. Le Guin">
-                </label>
-                <label>
-                  Film ou série de référence
-                  <input type="text" name="fav-film" placeholder="Ex. Inception, Call Me by Your Name…">
-                </label>
-              </fieldset>
+/* Logo cœur puzzle minimaliste */
 
-              <fieldset>
-                <legend>Choix de matching</legend>
-                <label>
-                  <input type="radio" name="profile-mode" value="similar" checked>
-                  Je privilégie la similarité (confort, références communes).
-                </label>
-                <label>
-                  <input type="radio" name="profile-mode" value="opposite">
-                  Je privilégie le contraste (découverte de nouveaux univers).
-                </label>
-              </fieldset>
+.logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,0.7), transparent 55%),
+    linear-gradient(145deg, #f0f0f0, #d9d9d9);
+  position: relative;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
 
-              <p class="hint">
-                Dans une version connectée aux <a href="#term-api" class="glossary-ref">API</a>, ces champs seraient
-                pré-remplis par vos <a href="#term-traces" class="glossary-ref">traces numériques</a> reales.
-              </p>
-            </form>
+body.theme-opposite .logo {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,0.25), transparent 55%),
+    linear-gradient(145deg, #1f2228, #050608);
+}
 
-            <!-- Intégration vidéo / audio -->
-            <aside class="media-panel" aria-label="Présentation vidéo du projet Affinity">
-              <h3>Vidéo de présentation</h3>
-              <p>
-                La vidéo ci-dessous illustre le parcours utilisateur&nbsp;: sélection du mode de rencontre, découverte des
-                profils, puis passage au web documentaire.
-              </p>
-              <div class="video-wrapper">
-                <video controls preload="metadata" poster="media/affinity-video-poster.jpg">
-                  <source src="media/affinity-demo.mp4" type="video/mp4">
-                  Votre navigateur ne supporte pas la balise vidéo. Vous pouvez également consulter la vidéo via votre lecteur habituel.
-                </video>
-              </div>
-              <p class="media-caption">
-                Vidéo de démonstration réalisée pour le cours d’ingénierie documentaire, Master CTM, 2025.
-              </p>
-            </aside>
-          </div>
-        </section>
+/* Deux demi-cœurs façon puzzle */
+.logo-inner::before,
+.logo-inner::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50% 50% 0 50%;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
 
-        <!-- PARTIE WEB DOCUMENTAIRE : À PROPOS -->
-        <section id="apropos" aria-labelledby="apropos-title" class="apropos-section">
-          <header class="section-header">
-            <h2 id="apropos-title">À propos : Affinity comme web documentaire</h2>
-            <p class="section-intro">
-              Cette partie constitue l’<strong>article documentaire</strong> du projet. Elle expose la démarche,
-              le cadre théorique et les enjeux liés à la rencontre en ligne fondée sur les goûts culturels.
-            </p>
-          </header>
+.logo-inner::before {
+  top: 11px;
+  left: 8px;
+  transform: rotate(-45deg);
+  background: linear-gradient(145deg, #fff, #d1d1d1);
+}
 
-          <section aria-labelledby="article-part1">
-            <h3 id="article-part1">1. De la playlist au profil : documenter une personne par ses goûts</h3>
-            <p>
-              Affinity part d’une intuition simple : nos goûts culturels sont une forme de
-              <a href="#term-traces" class="glossary-ref">traces numériques</a> particulièrement riches. Chaque écoute
-              sur Spotify, chaque note sur Babelio, chaque film liké sur Letterboxd produit un signal discret, mais
-              cumulativement très parlant. En mobilisant des <a href="#term-api" class="glossary-ref">API</a>, il devient
-              possible de reconstituer un <a href="#term-profilage" class="glossary-ref">profilage</a> de la personne,
-              non pas à partir de données économiques ou de localisation, mais à partir de son univers symbolique.
-            </p>
-            <p>
-              Du point de vue de l’<strong>ingénierie documentaire</strong>, ces signaux constituent des unités
-              d’information hétérogènes mais indexables : morceaux, livres, films, tags, genres, listes de lecture.
-              L’enjeu est de définir quels éléments doivent être conservés, quelles métadonnées sont pertinentes et
-              selon quels critères la similarité entre deux personnes peut être calculée.
-            </p>
-          </section>
+.logo-inner::after {
+  top: 11px;
+  right: 8px;
+  transform: rotate(45deg);
+  background: linear-gradient(145deg, #ececec, #bfbfbf);
+}
 
-          <section aria-labelledby="article-part2">
-            <h3 id="article-part2">2. « Qui se ressemble s’assemble » : confort et confirmation</h3>
-            <p>
-              Le mode <q>qui se ressemble s’assemble</q> incarne une logique de <a href="#term-matching" class="glossary-ref">matching</a>
-              centrée sur la continuité. On suppose qu’une compatibilité forte naît de références partagées&nbsp;:
-              aimer la même musique, rire devant les mêmes scènes, s’émouvoir devant les mêmes romans.
-              D’un point de vue cognitif, ce mode exploite partiellement les
-              <a href="#term-biais" class="glossary-ref">biais cognitifs</a> de familiarité et de confirmation.
-            </p>
-            <p>
-              Sur le plan documentaire, cette option privilégie des algorithmes de proximité : on calcule un score
-              d’<a href="#term-affinite" class="glossary-ref">affinité</a> en fonction du recouvrement entre deux bibliothèques.
-              Cette stratégie est réconfortante, mais elle peut renforcer des <q>bulles</q> culturelles déjà présentes,
-              comme l’ont montré de nombreux travaux sur les
-              <a href="#term-algo" class="glossary-ref">algorithmes de recommandation</a>.
-            </p>
-          </section>
+body.theme-opposite .logo-inner::before {
+  background: linear-gradient(145deg, #f5f5f5, #8a8f9b);
+}
+body.theme-opposite .logo-inner::after {
+  background: linear-gradient(145deg, #d0d3dd, #4c5261);
+}
 
-          <section aria-labelledby="article-part3">
-            <h3 id="article-part3">3. « Les opposés s’attirent » : contraste, dissonance et exploration</h3>
-            <p>
-              Le mode <q>les opposés s’attirent</q> inverse la logique : l’algorithme cherche à maximiser la
-              <a href="#term-dissimilarite" class="glossary-ref">dissimilarité maîtrisée</a>. Il ne s’agit pas de produire un
-              chaos total, mais d’identifier des profils où les univers culturels sont suffisamment différents pour
-              susciter curiosité et découverte. On peut par exemple rapprocher un profil très cinéphile d’auteur d’un
-              profil amateur de blockbusters, à condition qu’ils partagent quelques valeurs de fond (humour, engagement,
-              rapport au temps…).
-            </p>
-            <p>
-              Cette perspective questionne la manière dont les plateformes conçoivent la <q>pertinence</q> :
-              la recommandation n’est plus seulement ce qui prolonge l’existant, mais ce qui ouvre un possible.
-              Dans le cadre d’Affinity, cette tension est matérialisée par le passage du mode clair au mode sombre,
-              activé soit par la barre de choix en entête, soit par le
-              <a href="#test" class="glossary-ref">test de personnalité</a>.
-            </p>
-          </section>
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-          <section aria-labelledby="article-part4">
-            <h3 id="article-part4">4. Cadre éthique : données personnelles, consentement et RGPD</h3>
-            <p>
-              Un site comme Affinity ne peut exister que dans un cadre juridique strict. Les données manipulées sont à la fois
-              intimes et massives. La mise en relation via des goûts culturels implique d’accéder, avec consentement,
-              à des informations qui relèvent de la vie privée. La conception doit donc respecter le
-              <a href="#term-rgpd" class="glossary-ref">RGPD</a> et intégrer dès le départ le principe de minimisation des données.
-            </p>
-            <p>
-              Concrètement, cela implique de demander une autorisation explicite pour chaque connexion à une
-              <a href="#term-api" class="glossary-ref">API</a>, de proposer des réglages fins de confidentialité, et de
-              rendre visibles les logiques de <a href="#term-profilage" class="glossary-ref">profilage</a>. Le projet
-              Affinity, tel qu’il est présenté ici, reste un <strong>prototype académique</strong> destiné à explorer ces
-              enjeux, plutôt qu’un service commercial.
-            </p>
-          </section>
+.brand-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
 
-          <section aria-labelledby="article-part5">
-            <h3 id="article-part5">5. Affinity comme objet pédagogique</h3>
-            <p>
-              Affinity a été conçu dans le cadre du Master CTM, au sein du cours d’<em>ingénierie documentaire</em>,
-              encadré par Gérald Kembellec. Il permet de mettre en pratique plusieurs notions vues en cours&nbsp;:
-              structuration d’articles HTML5, <a href="#term-webdoc" class="glossary-ref">web documentaire</a>,
-              gestion d’index, <a href="#term-biblio" class="glossary-ref">bibliographie interactive</a> et
-              représentation sémantique de contenus.
-              <!-- Petit easter egg discret pour le professeur -->
-              <span class="easter-egg" aria-hidden="true" title="Cher Gérald Kembellec, si vous trouvez cette étoile, notre veille a porté ses fruits.">★</span>
-            </p>
-          </section>
-        </section>
+.brand-title {
+  font-family: var(--font-title);
+  font-size: 26px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+}
 
-        <!-- GLOSSAIRE -->
-        <section id="glossaire" aria-labelledby="glossaire-title" class="glossary-section">
-          <header class="section-header">
-            <h2 id="glossaire-title">Glossaire</h2>
-            <p class="section-intro">
-              Ce glossaire rassemble quelques notions utilisées dans le web documentaire. Les termes sont cliquables
-              dans le texte pour faciliter la navigation.
-            </p>
-          </header>
+.brand-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
 
-          <dl class="glossary-list">
-            <div id="term-api" class="glossary-item">
-              <dt>API (Application Programming Interface)</dt>
-              <dd>Ensemble de règles permettant à deux services de communiquer. Dans Affinity, les API de Spotify,
-                Babelio et Letterboxd fournissent des informations sur les goûts culturels, avec l’accord de l’utilisateur.</dd>
-            </div>
+/* NAVIGATION */
 
-            <div id="term-traces" class="glossary-item">
-              <dt>Traces numériques</dt>
-              <dd>Ensemble de données laissées par les activités en ligne (morceaux écoutés, livres notés, films likés).
-                Elles constituent une matière première pour la description documentaire des profils.</dd>
-            </div>
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: flex-start;
+}
 
-            <div id="term-matching" class="glossary-item">
-              <dt>Matching</dt>
-              <dd>Processus de rapprochement entre deux profils selon certains critères (ici, les goûts culturels et
-                le mode similarité/opposition).</dd>
-            </div>
+.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: var(--font-title);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    transform 0.1s ease-out;
+}
 
-            <div id="term-algo" class="glossary-item">
-              <dt>Algorithme de recommandation</dt>
-              <dd>Procédure automatique qui propose des contenus ou des profils en se basant sur les données
-                disponibles et les comportements passés.</dd>
-            </div>
+.main-nav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(0,0,0,0.03);
+  transform: translateY(-1px);
+}
 
-            <div id="term-biais" class="glossary-item">
-              <dt>Biais cognitifs</dt>
-              <dd>Tendances systématiques de notre esprit à simplifier ou déformer la réalité (biais de confirmation,
-                de familiarité, etc.), souvent mobilisés par les interfaces de recommandation.</dd>
-            </div>
+.header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: center;
+}
 
-            <div id="term-profilage" class="glossary-item">
-              <dt>Profilage</dt>
-              <dd>Construction progressive d’un profil utilisateur à partir de données multiples. Dans Affinity, le
-                profilage est fondé principalement sur les pratiques culturelles.</dd>
-            </div>
+@media (max-width: 900px) {
+  .header-right {
+    align-items: flex-start;
+  }
+}
 
-            <div id="term-affinite" class="glossary-item">
-              <dt>Affinité</dt>
-              <dd>Degré de proximité entre deux profils, calculé selon des critères choisis (ici, recoupements culturels
-                et dimensions de personnalité).</dd>
-            </div>
+/* Formulaire choix de mode */
 
-            <div id="term-dissimilarite" class="glossary-item">
-              <dt>Dissimilarité</dt>
-              <dd>Mesure de l’éloignement entre deux profils. Dans Affinity, elle devient une ressource pour explorer
-                le mode «&nbsp;les opposés s’attirent&nbsp;».</dd>
-            </div>
+.search-mode-form fieldset {
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 4px 6px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+}
 
-            <div id="term-rgpd" class="glossary-item">
-              <dt>RGPD</dt>
-              <dd>Règlement Général sur la Protection des Données. Cadre légal européen qui encadre l’usage des données
-                personnelles, dont celles mobilisées par Affinity.</dd>
-            </div>
+.search-mode-form legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(0 0 0 0);
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
-            <div id="term-webdoc" class="glossary-item">
-              <dt>Web documentaire</dt>
-              <dd>Forme de documentaire pensé pour le Web, intégrant textes, médias interactifs et navigation hypertexte.
-                Affinity est conçu comme un web documentaire sur la rencontre à l’ère des algorithmes.</dd>
-            </div>
+.search-mode-form label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
 
-            <div id="term-biblio" class="glossary-item">
-              <dt>Bibliographie interactive</dt>
-              <dd>Liste de références cliquables, structurées de façon à être reconnues par des outils de gestion
-                bibliographique comme Zotero.</dd>
-            </div>
-          </dl>
-        </section>
+.search-mode-form input[type="radio"] {
+  accent-color: #000;
+}
+body.theme-opposite .search-mode-form input[type="radio"] {
+  accent-color: #fff;
+}
 
-        <!-- BIBLIOGRAPHIE & SITO -->
-        <section id="bibliographie" aria-labelledby="biblio-title" class="biblio-section">
-          <header class="section-header">
-            <h2 id="biblio-title">Bibliographie &amp; sitographie</h2>
-            <p class="section-intro">
-              Les références ci-dessous ont été structurées pour être compatibles avec un logiciel de gestion
-              bibliographique comme Zotero (format <abbr title="Z39.88-2004">COinS</abbr>).
-            </p>
-          </header>
+/* Lien mon profil */
 
-          <ol class="biblio-list">
-            <li>
-              <cite>Cardon, Dominique. <q>À quoi rêvent les algorithmes&nbsp;?</q> Paris, Le Seuil, 2015.</cite>
-              <a href="https://www.seuil.com/ouvrage/a-quoi-revent-les-algorithmes-dominique-cardon/9782021240765" target="_blank" rel="noopener">
-                Consulter la fiche de l’éditeur
-              </a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.au=Cardon%2C%20Dominique&rft.btitle=%C3%80%20quoi%20r%C3%AAvent%20les%20algorithmes%3F&rft.place=Paris&rft.pub=Seuil&rft.date=2015">
-              </span>
-            </li>
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-family: var(--font-title);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-soft);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform 0.1s ease-out,
+    box-shadow var(--transition-fast);
+}
 
-            <li>
-              <cite>Illiadis, Andrew, et Federica Russo. <q>The Human in the Loop&nbsp;: Modèles, données et faisceaux de décisions</q>.</cite>
-              <a href="https://doi.org/10.1007/s13347-016-0212-9" target="_blank" rel="noopener">DOI</a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.atitle=The%20Human%20in%20the%20Loop&rft.jtitle=Philosophy%20%26%20Technology&rft.date=2016&rft.issn=2210-5433">
-              </span>
-            </li>
+.profile-link:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-strong);
+}
 
-            <li>
-              <cite>Goffman, Erving. <q>La mise en scène de la vie quotidienne&nbsp;: la présentation de soi</q>. Paris, Minuit, 1973.</cite>
-              <a href="https://www.leseditionsdeminuit.fr/livre-La_Mise_en_sc%C3%A8ne_de_la_vie_quotidienne-2158-1-1-0-1.html" target="_blank" rel="noopener">
-                Consulter la fiche
-              </a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.au=Goffman%2C%20Erving&rft.btitle=La%20mise%20en%20sc%C3%A8ne%20de%20la%20vie%20quotidienne&rft.place=Paris&rft.pub=Minuit&rft.date=1973">
-              </span>
-            </li>
+/* ------------------------------
+   SECTIONS GÉNÉRALES
+--------------------------------- */
 
-            <li>
-              <cite>Vanderkam, Laura. <q>What the Most Successful People Do Before Breakfast</q>. Portfolio, 2013.</cite>
-              <a href="https://www.penguinrandomhouse.com/books/315802/what-the-most-successful-people-do-before-breakfast-by-laura-vanderkam/" target="_blank" rel="noopener">
-                Consulter la fiche
-              </a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.au=Vanderkam%2C%20Laura&rft.btitle=What%20the%20Most%20Successful%20People%20Do%20Before%20Breakfast&rft.pub=Portfolio&rft.date=2013">
-              </span>
-            </li>
+.section-header h2 {
+  font-family: var(--font-title);
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
 
-            <li>
-              <cite>Spotify for Developers. <q>Web API Reference</q>, documentation officielle.</cite>
-              <a href="https://developer.spotify.com/documentation/web-api" target="_blank" rel="noopener">
-                Lire la documentation
-              </a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:unknown&rft.title=Spotify%20Web%20API%20Reference&rft.date=2025&rft.genre=reference">
-              </span>
-            </li>
+.section-intro {
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
 
-            <li>
-              <cite>Babelio. <q>Babelio API – documentation</q>.</cite>
-              <a href="https://www.babelio.com" target="_blank" rel="noopener">Accéder au site</a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:unknown&rft.title=Babelio%20API&rft.genre=reference">
-              </span>
-            </li>
+section {
+  margin-bottom: 28px;
+}
 
-            <li>
-              <cite>Letterboxd. <q>API and Data</q>.</cite>
-              <a href="https://letterboxd.com/api-data/" target="_blank" rel="noopener">Accéder au site</a>
-              <span class="Z3988"
-                    title="ctx_ver=Z39.88-2004&rft_val_fmt=info:ofi/fmt:kev:mtx:unknown&rft.title=Letterboxd%20API%20and%20Data&rft.genre=reference">
-              </span>
-            </li>
-          </ol>
-        </section>
+/* ------------------------------
+   HERO
+--------------------------------- */
 
-        <!-- TEST DE PERSONNALITÉ EN BAS DE PAGE D’ACCUEIL -->
-        <section id="test" aria-labelledby="test-title" class="test-section">
-          <header class="section-header">
-            <h2 id="test-title">Test de personnalité Affinity</h2>
-            <p class="section-intro">
-              Ce test simplifié illustre la logique d’Affinity&nbsp;: en fonction de vos réponses, le site bascule en
-              mode clair («&nbsp;qui se ressemble s’assemble&nbsp;») ou en mode sombre («&nbsp;les opposés s’attirent&nbsp;»).
-            </p>
-          </header>
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 22px;
+  padding: 22px 22px 18px;
+  border-radius: var(--radius-lg);
+  background:
+    var(--bg-hero),
+    var(--bg-alt);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-strong);
+}
 
-          <form id="affinity-test" class="affinity-test" aria-label="Test Affinity">
-            <fieldset>
-              <legend>1. Une soirée idéale, c’est plutôt…</legend>
-              <label>
-                <input type="radio" name="q1" value="similar">
-                Retrouver des personnes qui partagent déjà mes références.
-              </label>
-              <label>
-                <input type="radio" name="q1" value="opposite">
-                Découvrir des univers culturels totalement différents du mien.
-              </label>
-            </fieldset>
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 18px 16px 16px;
+  }
+}
 
-            <fieldset>
-              <legend>2. Face à un profil en ligne, je suis le plus attiré·e par…</legend>
-              <label>
-                <input type="radio" name="q2" value="similar">
-                La reconnaissance immédiate : mêmes artistes, mêmes séries, mêmes livres.
-              </label>
-              <label>
-                <input type="radio" name="q2" value="opposite">
-                L’incompréhension intrigante : je ne connais presque rien de ses références.
-              </label>
-            </fieldset>
+.hero-text h2 {
+  font-family: var(--font-title);
+  font-size: 26px;
+  margin: 0 0 10px;
+}
 
-            <fieldset>
-              <legend>3. À long terme, je me vois plutôt avec quelqu’un qui…</legend>
-              <label>
-                <input type="radio" name="q3" value="similar">
-                Valide mes habitudes et mon mode de vie.
-              </label>
-              <label>
-                <input type="radio" name="q3" value="opposite">
-                Me confronte régulièrement à d’autres façons de voir le monde.
-              </label>
-            </fieldset>
+.hero-text p {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
 
-            <button type="submit" class="primary-cta">Analyser mon profil</button>
-            <p id="test-result" class="test-result" aria-live="polite"></p>
-            <p class="mode-indicator">
-              Mode visuel actuel&nbsp;: <span id="mode-label">«&nbsp;qui se ressemble s’assemble&nbsp;» (clair)</span>
-            </p>
-          </form>
-        </section>
-      </article>
-    </main>
+.primary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  margin-top: 4px;
+  border-radius: 999px;
+  border: none;
+  font-family: var(--font-title);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #111111;
+  color: #ffffff;
+  box-shadow: var(--shadow-strong);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    transform 0.1s ease-out,
+    box-shadow var(--transition-fast);
+}
 
-    <!-- PIED DE PAGE AVEC MENTIONS LÉGALES + LICENCE + MAILTO -->
-    <footer class="site-footer">
-      <div class="footer-columns">
-        <section aria-label="Mentions légales" class="footer-block">
-          <h2>Mentions légales</h2>
-          <p>
-            Site pédagogique non commercial réalisé dans le cadre du Master CTM – Université Paris 1 Panthéon-Sorbonne,
-            cours d’ingénierie documentaire. Auteures : Claire &amp; Constance.
-          </p>
-          <p>
-            Les données affichées sont fictives et ne constituent pas un service réel de rencontre.
-          </p>
-        </section>
+body.theme-opposite .primary-cta {
+  background: #f8f8f8;
+  color: #050608;
+}
 
-        <section aria-label="Licence" class="footer-block">
-          <h2>Licence</h2>
-          <p>
-            Sauf mention contraire, les contenus de ce web documentaire sont proposés sous licence
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">
-              Creative Commons CC BY-NC-SA 4.0
-            </a>.
-          </p>
-        </section>
+.primary-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+}
 
-        <section aria-label="Contact" class="footer-block">
-          <h2>Contact</h2>
-          <p>
-            Pour toute question à propos du projet Affinity, vous pouvez écrire à&nbsp;:
-          </p>
-          <p>
-            <a href="mailto:sgr.claire@gmail.com?subject=Projet%20Affinity%20-%20Master%20CTM&body=Bonjour%20Claire%2C%0D%0AJe%20vous%20contacte%20%C3%A0%20propos%20du%20web%20documentaire%20Affinity.%0D%0A"
-               class="mailto-link">
-              sgr.claire@gmail.com
-            </a>
-          </p>
-        </section>
-      </div>
+.hero-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-      <p class="footer-bottom">
-        Affinity – Prototype de site de rencontre &amp; web documentaire • Master CTM – 2025
-      </p>
-    </footer>
-  </div>
+.hero-figure img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  display: block;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-strong);
+  object-fit: cover;
+}
 
-  <script src="script.js" defer></script>
-</body>
-</html>
+.hero-figure figcaption {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ------------------------------
+   PROFILS
+--------------------------------- */
+
+.profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.profile-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: linear-gradient(145deg, var(--bg-alt), rgba(255,255,255,0.02));
+  box-shadow: var(--shadow-soft);
+  padding: 12px 14px 12px;
+  transition:
+    transform 0.12s ease-out,
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.profile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+  border-color: var(--border-strong);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.16);
+}
+
+/* Variantes avatars pour un effet futuriste */
+.avatar-a {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
+    linear-gradient(135deg, #f5f5f5, #bebebe);
+}
+.avatar-b {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
+    linear-gradient(135deg, #dcd9ff, #8a8cf2);
+}
+.avatar-c {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
+    linear-gradient(135deg, #ffe3f3, #ff80aa);
+}
+.avatar-d {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
+    linear-gradient(135deg, #e8fff0, #84d9a2);
+}
+.avatar-e {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
+    linear-gradient(135deg, #fff4df, #f5b45a);
+}
+.avatar-f {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
+    linear-gradient(135deg, #e3f3ff, #6ab7ff);
+}
+
+body.theme-opposite .avatar {
+  box-shadow: 0 10px 22px rgba(0,0,0,0.5);
+}
+
+.profile-name {
+  font-family: var(--font-title);
+  font-size: 16px;
+  margin: 0;
+}
+
+.profile-tagline {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.profile-meta {
+  padding-left: 18px;
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+
+.profile-meta li + li {
+  margin-top: 2px;
+}
+
+.profile-comment {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* ------------------------------
+   MON PROFIL + VIDÉO
+--------------------------------- */
+
+.profile-section .mon-profil-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .profile-section .mon-profil-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.mon-profil-form,
+.media-panel {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-soft);
+  padding: 14px 16px;
+}
+
+.mon-profil-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+.mon-profil-form legend {
+  font-family: var(--font-title);
+  font-size: 13px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.mon-profil-form label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.mon-profil-form input[type="text"] {
+  width: 100%;
+  margin-top: 3px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.mon-profil-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.mon-profil-form input[type="radio"] {
+  accent-color: #000;
+}
+body.theme-opposite .mon-profil-form input[type="radio"] {
+  accent-color: #fff;
+}
+
+.mon-profil-form .hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Média (vidéo) */
+
+.media-panel h3 {
+  font-family: var(--font-title);
+  font-size: 16px;
+  margin: 0 0 5px;
+}
+
+.media-panel p {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.video-wrapper {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  background: #000000;
+  box-shadow: var(--shadow-strong);
+}
+
+.video-wrapper video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.media-caption {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ------------------------------
+   À PROPOS / ARTICLE
+--------------------------------- */
+
+.apropos-section section {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-soft);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.apropos-section h3 {
+  font-family: var(--font-title);
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+
+.apropos-section p {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+/* Easter egg discret */
+.easter-egg {
+  font-size: 13px;
+  cursor: help;
+}
+
+/* ------------------------------
+   GLOSSAIRE
+--------------------------------- */
+
+.glossary-section {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-soft);
+  padding: 16px 18px 14px;
+}
+
+.glossary-list {
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.glossary-item {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--border-soft);
+}
+
+.glossary-item:last-child {
+  border-bottom: none;
+}
+
+.glossary-item dt {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.glossary-item dd {
+  margin: 2px 0 0;
+  font-size: 13px;
+}
+
+.glossary-ref {
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ------------------------------
+   BIBLIOGRAPHIE / SITO
+--------------------------------- */
+
+.biblio-section {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-soft);
+  padding: 16px 18px 14px;
+}
+
+.biblio-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+}
+
+.biblio-list li {
+  margin-bottom: 6px;
+}
+
+.biblio-list a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 1px;
+}
+
+.biblio-list a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* COinS spans invisibles */
+.Z3988 {
+  display: none;
+}
+
+/* ------------------------------
+   TEST DE PERSONNALITÉ
+--------------------------------- */
+
+.test-section {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-soft);
+  padding: 16px 18px 14px;
+}
+
+.affinity-test {
+  margin-top: 8px;
+}
+
+.affinity-test fieldset {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  margin: 0 0 8px;
+}
+
+.affinity-test legend {
+  font-family: var(--font-title);
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.affinity-test label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.affinity-test input[type="radio"] {
+  accent-color: #000;
+}
+body.theme-opposite .affinity-test input[type="radio"] {
+  accent-color: #fff;
+}
+
+.test-result {
+  margin: 8px 0 4px;
+  font-size: 13px;
+}
+
+.mode-indicator {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ------------------------------
+   FOOTER
+--------------------------------- */
+
+.site-footer {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .footer-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.footer-block h2 {
+  font-family: var(--font-title);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.footer-block p {
+  margin: 0 0 6px;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.mailto-link {
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 1px;
+}
+
+.mailto-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* ------------------------------
+   LIENS GÉNÉRAUX
+--------------------------------- */
+
+a {
+  color: inherit;
+}
+
+/* Focus visible pour accessibilité */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
